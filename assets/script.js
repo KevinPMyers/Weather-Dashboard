@@ -38,17 +38,25 @@ function getWeather(inputEl) {
        humidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
        var lat = response.data.coord.lat;
        var long = response.data.coord.lat;
-    var uvUrl = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + long + "appid=" + apiKey;
-        axios.get(uvUrl).then(function(response){
-            var uvIndex = document.createElement("span");
-            uvIndex.setAttribute("class", "badge badge-danger");
-            uvIndex.innerHTML = response.data[0].value;
-            UV.innerHTML = "UV Index: ";
-            UV.append(uvIndex);
-        });
+    // var uvUrl = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + long + "appid=" + apiKey;
+    //     axios.get(uvUrl).then(function(response){
+    //         var uvIndex = document.createElement("span");
+    //         uvIndex.setAttribute("class", "badge badge-danger");
+    //         uvIndex.innerHTML = response.data[0].value;
+    //         UV.innerHTML = "UV Index: ";
+    //         UV.append(uvIndex);
+    //     });
         
     })
 
+    axios.get("https://api.openweathermap.org/data/2.5/forecast?q=" +inputEl + apiKey + units)
+    .then(function(response){
+        // console.log(response)
+        console.log(response.data.list)
+
+        var filteredArr = response.data.list.filter(index => index.dt_txt.includes("15:00:00"))
+        console.log(filteredArr)
+    })
 
 
    } 
